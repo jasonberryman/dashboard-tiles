@@ -95,10 +95,10 @@
         value:"example.com",
       },
       getReady:{
-        computed: "_ready(customerDomain,name)"
+        computed: "setup(customerDomain,name)"
       },
     },
-    _ready: function(customerDomain,name){
+    setup: function(customerDomain,name){
       if (customerDomain && name){
         var userEmail = name + "@" + customerDomain
         var db = firebase.firestore()
