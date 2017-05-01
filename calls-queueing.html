@@ -86,14 +86,18 @@
         type:Array,
         value:[],
       },
-      userEmail:{
-        value:'test.user@example.com',
+      name:{
+        value:'test.user',
+      },
+      customerDomain:{
+        value:'example.com',
       },
       getReady:{
-        computed: "_ready(userEmail)"
+        computed: "_ready(customerDomain,name)"
       },
     },
-    _ready: function(userEmail){
+    _ready: function(customerDomain,name){
+      var userEmail = name + "@" + customerDomain
       var db = firebase.firestore()
       var that = this
       db.collection('directory').doc(userEmail).collection("dashboardCards").onSnapshot(function(doc) {
