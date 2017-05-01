@@ -97,22 +97,24 @@
       },
     },
     _ready: function(customerDomain,name){
-      var userEmail = name + "@" + customerDomain
-      var db = firebase.firestore()
-      var that = this
-      db.collection('directory').doc(userEmail).collection("dashboardCards").onSnapshot(function(doc) {
-        if (doc) {
-          var list = []
-          for (var index in doc.docs) {
-            var data = doc.docs[index].data()
+      if (customerDomain && name){
+        var userEmail = name + "@" + customerDomain
+        var db = firebase.firestore()
+        var that = this
+        db.collection('directory').doc(userEmail).collection("dashboardCards").onSnapshot(function(doc) {
+          if (doc) {
+            var list = []
+            for (var index in doc.docs) {
+              var data = doc.docs[index].data()
             console.log("Document data:", data)
-            list.push(data)
+              list.push(data)
+            }
+            that.list = list
+          } else {
+            console.log("No such document!")
           }
-          that.list = list
-        } else {
-          console.log("No such document!")
-        }
-      }) 
+        })
+      }
     },
   })
 </script>
