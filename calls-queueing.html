@@ -86,11 +86,17 @@
         type:Array,
         value:[],
       },
+      userEmail:{
+        value:'test.user@example.com',
+      },
+      getReady:{
+        computed: "_ready(userEmail)"
+      },
     },
-    ready: function(undefined){
+    _ready: function(userEmail){
       var db = firebase.firestore()
       var that = this
-      db.collection('directory').doc('test.user@example.com').collection("dashboardCards").onSnapshot(function(doc) {
+      db.collection('directory').doc(userEmail).collection("dashboardCards").onSnapshot(function(doc) {
         if (doc) {
           var list = []
           for (var index in doc.docs) {
