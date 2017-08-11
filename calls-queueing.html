@@ -98,29 +98,34 @@
         type: String,
       },
       getReady:{
-        computed: "setup(customerDomain,name)"
+        computed: "setup(customerDomain,userRef)"
       },
       background: {
         value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655"
       },
     },
-    setup: function(customerDomain,name){
-      if (customerDomain && name){
-        var userEmail = name + "@" + customerDomain
-        var db = firebase.firestore()
+    setup: function(customerDomain,userRef){
+      if (customerDomain){
         var that = this
-        db.collection('directory').doc(userEmail).collection("dashboardCards").onSnapshot(function(doc) {
-          if (doc) {
-            var list = []
-            for (var index in doc.docs) {
-              var data = doc.docs[index].data()
-              list.push(data)
-            }
-            that.list = list
-          } else {
-            console.log("No such document!")
+        var list = []
+        userRef.collection('dashboards').onSnapshot(function(dashboard) {
+          if (dashboard) {
+            for (var index in dashboard.docs) {
+              // add unsub there
+              firebase.firestore().collection('directory')
+                .doc(dashboard.docs[index].data().directorySource).collection("dashboardCards").onSnapshot(function(doc) {
+              if (doc) {
+                for (var index in doc.docs) {
+                  var data = doc.docs[index].data()
+                  list.push(data)
+                }
+                that.list = list
+              } else {
+                console.log("No such document!")
+              }
+            })
           }
-        })
+        }
       }
     },
   })
