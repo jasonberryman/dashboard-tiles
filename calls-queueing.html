@@ -15,7 +15,6 @@
       :host {
         font-family: 'Roboto', 'Noto', sans-serif;
         -webkit-font-smoothing: antialiased;
-        
       }
     </style>
     <template is="dom-if" if="[[!list.length]]">
@@ -29,7 +28,9 @@
           </paper-icon-item>
           <paper-item-body style="color:#333" two-line>
             <div>[[item.primaryName]]</div>
-            <div secondary>Description</div>
+            <template is="dom-if" if="[[item.description]]">
+              <div secondary>[[item.description]]</div>
+            </template>
           </paper-item-body>
         </paper-item>
         <table style="width:100%;margin-top:5px">
@@ -75,7 +76,6 @@
         </tbody></table>
       </paper-material>
     </template>
-    
   </template>
 </dom-module>
 <script>
@@ -94,6 +94,9 @@
         type: String,
         value:"example.com",
       },
+      description:{
+        type: String,
+      },
       getReady:{
         computed: "setup(customerDomain,name)"
       },
@@ -111,7 +114,6 @@
             var list = []
             for (var index in doc.docs) {
               var data = doc.docs[index].data()
-            console.log("Document data:", data)
               list.push(data)
             }
             that.list = list
