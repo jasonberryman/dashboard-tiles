@@ -67,7 +67,7 @@
        <td style="color:#2828bd">95%</td>
        <td style="color:#2828bd">308 <span style="font-size:.6em;">calls</span></td>
        <td style="color:red"    >16 <span style="font-size:.6em;">calls</span></td>
-       <td rowspan="2"><img style="max-width:110px" src="https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655"/></td>
+       <td rowspan="2"><img style="max-width:110px" src="[[background]]"/></td>
      </tr>
      <tr style="font-size: .6em;">
        <td colspan="3">last 24 hours</td>
@@ -83,19 +83,22 @@
     is: "calls-queueing",
     properties:{
       list:{
-        type:Array,
+        type: Array,
         value:[],
       },
       name:{
-        type:String,
+        type: String,
         value:"test.user",
       },
       customerDomain:{
-        type:String,
+        type: String,
         value:"example.com",
       },
       getReady:{
         computed: "setup(customerDomain,name)"
+      },
+      background: {
+        value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655"
       },
     },
     setup: function(customerDomain,name){
