@@ -113,17 +113,20 @@
             for (var index in dashboard.docs) {
               // add unsub there
               firebase.firestore().collection('directory')
-                .doc(dashboard.docs[index].data().directorySource).collection("dashboardCards").onSnapshot(function(doc) {
-              if (doc) {
-                for (var index in doc.docs) {
-                  var data = doc.docs[index].data()
-                  list.push(data)
+              .doc(dashboard.docs[index].data().directorySource)
+              .collection("dashboardCards")
+              .onSnapshot(function(doc) {
+                if (doc) {
+                  for (var index in doc.docs) {
+                    var data = doc.docs[index].data()
+                    list.push(data)
+                  }
+                  that.list = list
+                } else {
+                  console.log("No such document!")
                 }
-                that.list = list
-              } else {
-                console.log("No such document!")
-              }
-            })
+              })
+            }
           }
         })
       }
