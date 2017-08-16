@@ -35,18 +35,18 @@
         </paper-item>
         <table style="width:100%;margin-top:5px">
           <tr>
-            <td style="vertical-align: bottom;padding-left:15px ;text-align: left;">
+            <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
               <div style="line-height: 1;font-size:4em;font-weight:800">12</div>
             </td>
-            <td style="vertical-align: bottom;padding-right:15px ;text-align:right;">
+            <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
               <date-display style="line-height: 1.4;font-size:2em;" value="PT2m30s"></date-display>
             </td>
           </tr>
           <tr>
-            <td style="padding-left:15px;text-align:left;"> 
+            <td style="padding-left:15px;text-align:left"> 
               <div>calls queueing</div>
             </td>
-            <td style="padding-right:15px;text-align:right;">
+            <td style="padding-right:15px;text-align:right">
               <div>longest wait</div>
             </td>
           </tr>
@@ -58,7 +58,7 @@
         position: absolute;
         top: 180px;text-align: left;
         color: #383838;
-        bottom: 0;"><tbody style="display: block;width: 100%;">
+        bottom: 0;"><tbody style="display: block;width: 100%">
      <tr style="font-size: .6em;">
        <th colspan="2">Answered</th>
        <th>Abandoned</th>
@@ -105,7 +105,7 @@
       },
     },
     setup: function(customerDomain,userRef){
-      if (customerDomain){
+      if (customerDomain && userRef){
         var that = this
         var list = []
         userRef.collection('dashboards').onSnapshot(function(dashboard) {
