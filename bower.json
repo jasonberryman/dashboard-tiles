@@ -11,7 +11,8 @@
     "polymer": "*",
     "text-avatar": "marcus7777/text-avatar#~1.0.1",
     "paper-item": "polymerelements/paper-item#~1.0.7",
-    "date-display": "*",
+    "date-display": "marcus7777/date-display",
+    "count-up": "marcus7777/count-up",
     "paper-material": "PolymerElements/paper-material#~1.0.6"
   },
   "devDependencies": {
