@@ -24,7 +24,7 @@
     </template>
     <template is="dom-repeat" items="{{list}}">
       <paper-material elevation="1" style$="background-color:[[bgColor]];color:[[getFg(bgColor)]];display:inline-block;margin:10px;width:300px;height:250px;color:[[item.textColor]];background-size:cover;background-image:url('[[item.photoURI]]')">
-        <dashboard-tile item="item"></dashboard-tile>
+        <dashboard-tile item="[[item]]"></dashboard-tile>
       </paper-material>
     </template>
   </template>
