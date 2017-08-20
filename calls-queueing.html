@@ -35,12 +35,12 @@
           </paper-item-body>
         </paper-item>
         <table style="width:100%;margin-top:5px">
-          <tr>
+          <tr style="background-color:[[bgColor]];color:[[fgColor]]">
             <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
               <div style="line-height: 1;font-size:4em;font-weight:800">[[item.callsQueueing]]</div>
             </td>
             <template is="dom-if" if="[[item.longestWaiting]]">
-              <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
+              <td style="vertical-align: bottom; padding-right:15px; text-align:right">
                 <count-up style="font-size:32px" from="[[item.longestWaiting]]"></count-up>
               </td>
             </template>
@@ -61,14 +61,10 @@
             </template>
           </tr>
         </table>
-        <table cellpadding="4" style="display:block;
-        width: 100%;
-        height: 70px;
-        background-color: rgba(255, 255, 255, 0.85);
-        position: absolute;
-        top: 180px;text-align: left;
-        color: #383838;
-        bottom: 0;"><tbody style="display: block;width: 100%">
+        <table cellpadding="4" style="display:block;width: 100%;
+        height: 70px; background-color: rgba(255, 255, 255, 0.85);
+        position: absolute;top: 180px;text-align: left;
+        color: #383838;bottom: 0;"><tbody style="display: block;width: 100%">
      <tr style="font-size: .6em;">
        <th colspan="2">Answered</th>
        <th>Abandoned</th>
