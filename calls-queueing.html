@@ -68,8 +68,9 @@
     },
     setup: function(userRef){
       this.allDashs = {}
-      this.unSubDash = {}
-      
+      if (!this.unSubDash) {
+        this.unSubDash = {}
+      }
       if (userRef){
         var that = this
         for (var unSubDash in this.unSubDash) {
@@ -84,7 +85,7 @@
             for (var index in dashboard.docs) {
               var dash = dashboard.docs[index].data().directorySource
               var alerts = {
-                callsQueueing: dashboard.docs[index].data().callsQueueing,
+                callsQueueing:  dashboard.docs[index].data().callsQueueing,
                 longestWaiting: dashboard.docs[index].data().longestWaiting,
               }
               
