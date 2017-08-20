@@ -39,17 +39,21 @@
             <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
               <div style="line-height: 1;font-size:4em;font-weight:800">12</div>
             </td>
-            <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
-              <count-up style="font-size:32px" from="[[item.longestWaiting]]"></count-up>
-            </td>
+            <template is="dom-if" if="[[item.longestWaiting]]">
+              <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
+                <count-up style="font-size:32px" from="[[item.longestWaiting]]"></count-up>
+              </td>
+            </template>
           </tr>
           <tr>
             <td style="padding-left:15px;text-align:left"> 
               <div>calls queueing</div>
             </td>
-            <td style="padding-right:15px;text-align:right">
-              <div>longest wait</div>
-            </td>
+            <template is="dom-if" if="[[item.longestWaiting]]">
+              <td style="padding-right:15px;text-align:right">
+                <div>longest wait</div>
+              </td>
+            </template>
           </tr>
         </table>
         <table cellpadding="4" style="display:block;
