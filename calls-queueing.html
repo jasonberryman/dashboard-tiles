@@ -23,9 +23,7 @@
       loading ..
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <paper-material elevation="1" style$="background-color:[[bgColor]];color:[[getFg(bgColor)]];display:inline-block;margin:10px;width:300px;height:250px;color:[[item.textColor]];background-size:cover;background-image:url('[[item.photoURI]]')">
-        <dashboard-tile item="[[item]]"></dashboard-tile>
-      </paper-material>
+      <dashboard-tile item="[[item]]"></dashboard-tile>
     </template>
   </template>
 </dom-module>
@@ -63,12 +61,6 @@
       go: {
         value:"",
       },
-      bgColor: {
-        value:"#00FF00"
-      },
-      fgColor: {
-        computed:"getFg(bgColor)",
-      },
     },
     setList: function(allDashs){
       var output = []
@@ -97,7 +89,11 @@
           if (dashboard) {
             for (var index in dashboard.docs) {
               var dash = dashboard.docs[index].data().directorySource
-              // add unsub there
+              var alerts = {
+                callsQueueing: dashboard.docs[index].data().callsQueueing,
+                longestWaiting: dashboard.docs[index].data().longestWaiting,
+              }
+              
               if (this.unSubDash[dash]) {
                 this.unSubDash[dash]()
               }
@@ -105,7 +101,11 @@
               .doc(dash)
               .onSnapshot(function(doc) {
                 if (doc) {
-                  that.allDashs[dash] = doc.data()
+                  that.allDashs[dash] = {
+                    data: doc.data(), 
+                    alerts: alerts,
+                    directorySource: dash,
+                  }
                   that.go = !that.go
                 } else {
                   console.log("No such document!")
@@ -114,19 +114,6 @@
             }
           }
         })
-      }
-    },
-    getFg: function(bg){
-      var c = bg.substring(1);     // strip #
-      var rgb = parseInt(c, 16);   // convert rrggbb to decimal
-      var r = (rgb >> 16) & 0xff;  // extract red
-      var g = (rgb >>  8) & 0xff;  // extract green
-      var b = (rgb >>  0) & 0xff;  // extract blue
-      var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-      if (luma > 128) {
-        return "#000"
-      } else {
-        return "#FFF"
       }
     },
   })
