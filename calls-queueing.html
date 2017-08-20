@@ -34,8 +34,8 @@
             </template>
           </paper-item-body>
         </paper-item>
-        <table style="width:100%;margin-top:5px">
-          <tr style="background-color:[[bgColor]];color:[[fgColor]]">
+        <table style$="background-color:[[bgColor]];color:[[fgColor]];width:100%;margin-top:5px">
+          <tr>
             <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
               <div style="line-height: 1;font-size:4em;font-weight:800">[[item.callsQueueing]]</div>
             </td>
@@ -104,25 +104,25 @@
         type: String,
       },
       photoURL:{
-        value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/pexels-photo-383617.jpg?alt=media&token=1ef57e5f-27b0-4254-95da-ddd171abaedb"
+        value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/pexels-photo-383617.jpg?alt=media&token=1ef57e5f-27b0-4254-95da-ddd171abaedb",
       },
       getReady:{
-        computed: "setup(userRef)"
+        computed: "setup(userRef)",
       },
       background:{
-        value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655"
+        value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655",
       },
       list:{
-        computed: "setList(allDashs,go)"
+        computed: "setList(allDashs,go)",
       },
       go: {
-        value:""
+        value:"",
       },
       bgColor: {
-        value:"green"
+        value:"#006600",
       },
       fgColor: {
-        value:"yellow"
+        computed:"getFg(bgColor)",
       },
     },
     setList: function(allDashs){
@@ -159,6 +159,19 @@
             }
           }
         })
+      }
+    },
+    getFg: function(bg){
+      var c = bg.substring(1);     // strip #
+      var rgb = parseInt(c, 16);   // convert rrggbb to decimal
+      var r = (rgb >> 16) & 0xff;  // extract red
+      var g = (rgb >>  8) & 0xff;  // extract green
+      var b = (rgb >>  0) & 0xff;  // extract blue
+      var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+      if (luma > 128) {
+        return "#000"
+      } else {
+        return "#FFF"
       }
     },
   })
