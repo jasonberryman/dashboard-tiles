@@ -8,10 +8,11 @@
     "web-components"
   ],
   "dependencies": {
-    "polymer": "*",
+    "polymer": "1.9.3",
     "text-avatar": "marcus7777/text-avatar#~1.0.1",
     "paper-item": "polymerelements/paper-item#~1.0.7",
     "date-display": "marcus7777/date-display",
+    "dashboard-tile": "marcus7777/dashboard-tile",
     "count-up": "marcus7777/count-up",
     "paper-material": "PolymerElements/paper-material#~1.0.6"
   },
