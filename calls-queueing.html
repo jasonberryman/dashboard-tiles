@@ -22,64 +22,8 @@
       loading ..
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <paper-material elevation="1" style$="background-color:[[bgColor]];color:[[fgColor]];display:inline-block;margin:10px;width:300px;height:250px;color:[[item.textColor]];background-size:cover;background-image:url('[[item.photoURI]]')">
-        <paper-item style="background-color: rgba(255, 255, 255, 0.85);">
-          <paper-icon-item>
-            <text-avatar item-icon name="[[item.primaryName]]"></text-avatar>
-          </paper-icon-item>
-          <paper-item-body style="color:#333" two-line>
-            <div>[[item.primaryName]]</div>
-            <template is="dom-if" if="[[item.description]]">
-              <div secondary>[[item.description]]</div>
-            </template>
-          </paper-item-body>
-        </paper-item>
-        <table style="width:100%;margin-top:5px">
-          <tr>
-            <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
-              <div style="line-height: 1;font-size:4em;font-weight:800">[[item.callsQueueing]]</div>
-            </td>
-            <template is="dom-if" if="[[item.longestWaiting]]">
-              <td style="vertical-align: bottom; padding-right:15px; text-align:right">
-                <count-up style="font-size:32px" from="[[item.longestWaiting]]"></count-up>
-              </td>
-            </template>
-            <template is="dom-if" if="[[!item.longestWaiting]]">
-              <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
-                No Waiting
-              </td>
-            </template>
-          </tr>
-          <tr>
-            <td style="padding-left:15px;text-align:left"> 
-              <div>calls queueing</div>
-            </td>
-            <template is="dom-if" if="[[item.longestWaiting]]">
-              <td style="padding-right:15px;text-align:right">
-                <div>longest wait</div>
-              </td>
-            </template>
-          </tr>
-        </table>
-        <table cellpadding="4" style="display:block;width: 100%;
-        height: 70px; background-color: rgba(255, 255, 255, 0.85);
-        position: absolute;top: 180px;text-align: left;
-        color: #383838;bottom: 0;"><tbody style="display: block;width: 100%">
-          <tr style="font-size: .6em;">
-            <th colspan="2">Answered</th>
-            <th>Abandoned</th>
-            <th>Calls per hour</th>
-          </tr>
-          <tr>
-            <td style="color:#2828bd">95%</td>
-            <td style="color:#2828bd">308 <span style="font-size:.6em;">calls</span></td>
-            <td style="color:red"    >16 <span style="font-size:.6em;">calls</span></td>
-            <td rowspan="2"><img style="max-width:110px" src$="[[background]]"/></td>
-          </tr>
-          <tr style="font-size: .6em;">
-            <td colspan="3">last 24 hours</td>
-          </tr>
-        </tbody></table>
+      <paper-material elevation="1" style$="background-color:[[bgColor]];color:[[getFg(bgColor)]];display:inline-block;margin:10px;width:300px;height:250px;color:[[item.textColor]];background-size:cover;background-image:url('[[item.photoURI]]')">
+        <dashboard-tile item="item"></dashboard-tile>
       </paper-material>
     </template>
   </template>
@@ -119,7 +63,7 @@
         value:"",
       },
       bgColor: {
-        value:"#006600",
+        value:"#00FF00"
       },
       fgColor: {
         computed:"getFg(bgColor)",
@@ -137,16 +81,26 @@
     },
     setup: function(userRef){
       this.allDashs = {}
+      this.unSubDash = {}
+      
       if (userRef){
         var that = this
-        var unsub = {}
+        for (var unSubDash in this.unSubDash) {
+          this.unSubDash[unSubDash]()
+        }
+        if (this.unSubDashs) {
+          this.unSubDashs()
+        }
         
-        userRef.collection('dashboards').onSnapshot(function(dashboard) {
+        this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
               var dash = dashboard.docs[index].data().directorySource
               // add unsub there
-              unsub[dash] = firebase.firestore().collection('directory')
+              if (this.unSubDash[dash]) {
+                this.unSubDash[dash]()
+              }
+              this.unSubDash[dash] = firebase.firestore().collection('directory')
               .doc(dash)
               .onSnapshot(function(doc) {
                 if (doc) {
