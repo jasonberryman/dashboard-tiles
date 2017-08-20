@@ -148,8 +148,8 @@
               .doc(dash)
               .onSnapshot(function(doc) {
                 if (doc) {
-                  this.allDashs[dash] = doc.data()
-                  this.go = !this.go
+                  that.allDashs[dash] = doc.data()
+                  that.go = !that.go
                 } else {
                   console.log("No such document!")
                 }
