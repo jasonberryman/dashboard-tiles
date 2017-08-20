@@ -65,20 +65,20 @@
         height: 70px; background-color: rgba(255, 255, 255, 0.85);
         position: absolute;top: 180px;text-align: left;
         color: #383838;bottom: 0;"><tbody style="display: block;width: 100%">
-     <tr style="font-size: .6em;">
-       <th colspan="2">Answered</th>
-       <th>Abandoned</th>
-       <th>Calls per hour</th>
-     </tr>
-     <tr>
-       <td style="color:#2828bd">95%</td>
-       <td style="color:#2828bd">308 <span style="font-size:.6em;">calls</span></td>
-       <td style="color:red"    >16 <span style="font-size:.6em;">calls</span></td>
-       <td rowspan="2"><img style="max-width:110px" src$="[[background]]"/></td>
-     </tr>
-     <tr style="font-size: .6em;">
-       <td colspan="3">last 24 hours</td>
-     </tr>
+          <tr style="font-size: .6em;">
+            <th colspan="2">Answered</th>
+            <th>Abandoned</th>
+            <th>Calls per hour</th>
+          </tr>
+          <tr>
+            <td style="color:#2828bd">95%</td>
+            <td style="color:#2828bd">308 <span style="font-size:.6em;">calls</span></td>
+            <td style="color:red"    >16 <span style="font-size:.6em;">calls</span></td>
+            <td rowspan="2"><img style="max-width:110px" src$="[[background]]"/></td>
+          </tr>
+          <tr style="font-size: .6em;">
+            <td colspan="3">last 24 hours</td>
+          </tr>
         </tbody></table>
       </paper-material>
     </template>
@@ -117,7 +117,13 @@
       },
       go: {
         value:""
-      }
+      },
+      bgColor: {
+        value:"green"
+      },
+      fgColor: {
+        value:"yellow"
+      },
     },
     setList: function(allDashs){
       var output = []
