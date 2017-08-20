@@ -116,11 +116,27 @@
       background:{
         value: "https://firebasestorage.googleapis.com/v0/b/dolphin-one-fstest2.appspot.com/o/blue%20line.png?alt=media&token=60c3eb2b-ca67-4d1a-8a5b-02e83d170655"
       },
+      list:{
+        computed: "setList(allDashs,go)"
+      },
+      go: {
+        value:""
+      }
+    },
+    setList: function(allDashs){
+      var output = []
+      if (allDashs) {
+        var keys = Object.keys(allDashs)
+        for (var i = 0; i < keys.length; i++) {
+          output.push(allDashs[keys[i]])
+        }
+      }
+      return output
     },
     setup: function(userRef){
+      this.allDashs = {}
       if (userRef){
         var that = this
-        var list = []
         var unsub = {}
         
         userRef.collection('dashboards').onSnapshot(function(dashboard) {
@@ -132,8 +148,8 @@
               .doc(dash)
               .onSnapshot(function(doc) {
                 if (doc) {
-                  list.push(doc.data())
-                  that.list = list
+                  this.allDashs[dash] = doc.data()
+                  this.go = !this.go
                 } else {
                   console.log("No such document!")
                 }
