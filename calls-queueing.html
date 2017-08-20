@@ -37,11 +37,16 @@
         <table style="width:100%;margin-top:5px">
           <tr>
             <td style="vertical-align: bottom;padding-left:15px ;text-align: left">
-              <div style="line-height: 1;font-size:4em;font-weight:800">12</div>
+              <div style="line-height: 1;font-size:4em;font-weight:800">[[item.callsQueueing]]</div>
             </td>
             <template is="dom-if" if="[[item.longestWaiting]]">
               <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
                 <count-up style="font-size:32px" from="[[item.longestWaiting]]"></count-up>
+              </td>
+            </template>
+            <template is="dom-if" if="[[!item.longestWaiting]]">
+              <td style="vertical-align: bottom;padding-right:15px ;text-align:right">
+                No Waiting
               </td>
             </template>
           </tr>
