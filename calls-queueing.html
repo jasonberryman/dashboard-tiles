@@ -89,10 +89,10 @@
                 longestWaiting: dashboard.docs[index].data().longestWaiting,
               }
               
-              if (this.unSubDash[dash]) {
-                this.unSubDash[dash]()
+              if (that.unSubDash[dash]) {
+                that.unSubDash[dash]()
               }
-              this.unSubDash[dash] = firebase.firestore().collection('directory')
+              that.unSubDash[dash] = firebase.firestore().collection('directory')
               .doc(dash)
               .onSnapshot(function(doc) {
                 if (doc) {
