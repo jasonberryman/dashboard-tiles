@@ -2,19 +2,14 @@
   "name": "calls-queueing",
   "version": "1.0.0",
   "description": "",
-  "main": "calls-queueing.html",
+  "main": "dashboard-tiles.html",
   "keywords": [
     "polymer",
     "web-components"
   ],
   "dependencies": {
     "polymer": "1.9.3",
-    "text-avatar": "marcus7777/text-avatar#~1.0.1",
-    "paper-item": "polymerelements/paper-item#~1.0.7",
-    "date-display": "marcus7777/date-display",
-    "dashboard-tile": "marcus7777/dashboard-tile",
-    "count-up": "marcus7777/count-up",
-    "paper-material": "PolymerElements/paper-material#~1.0.6"
+    "dashboard-tile": "marcus7777/dashboard-tile"
   },
   "devDependencies": {
     "iron-test-helpers": "*",
