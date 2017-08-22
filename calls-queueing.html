@@ -20,7 +20,7 @@
       }
     </style>
     <template is="dom-if" if="[[!list.length]]">
-      loading ..
+      loading .. / no dashboard tiles
     </template>
     <template is="dom-repeat" items="{{list}}">
       <dashboard-tile item="[[item]]"></dashboard-tile>
