@@ -88,12 +88,13 @@
                 longestWaiting: dashboard.docs[index].data().longestWaiting,
               }
               var dashKey = dashboard.docs[index].key
-              for (var dash in dashboard.docs[index].data().directorySource) {
-                if (that.unSubDash[dash]) {
-                  that.unSubDash[dash]()
+              var directorySource = dashboard.docs[index].data().directorySource
+              for (var dash in directorySource) {
+                if (that.unSubDash[directorySource[dash]]) {
+                  that.unSubDash[directorySource[dash]]()
                 }
-                that.unSubDash[dash] = firebase.firestore().collection('directory')
-                .doc(dash)
+                that.unSubDash[directorySource[dash]] = firebase.firestore().collection('directory')
+                .doc(directorySource[dash])
                 .onSnapshot(function(doc) {
                   if (doc) {
                     that.allDashs[dashKey] = {
