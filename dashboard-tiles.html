@@ -87,6 +87,7 @@
                 callsQueueing:  dashboard.docs[index].data().callsQueueing,
                 longestWaiting: dashboard.docs[index].data().longestWaiting,
               }
+              var dashKey = dashboard.docs[index].key
               for (var dash in dashboard.docs[index].data().directorySource) {
                 if (that.unSubDash[dash]) {
                   that.unSubDash[dash]()
@@ -95,10 +96,11 @@
                 .doc(dash)
                 .onSnapshot(function(doc) {
                   if (doc) {
-                    that.allDashs[dash] = {
+                    that.allDashs[dashKey] = {
                       data: doc.data(), 
                       alerts: alerts,
                       directorySource: dash,
+                      dashKey: dashKey,
                     }
                     that.go = !that.go
                   } else {
