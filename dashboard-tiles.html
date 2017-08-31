@@ -89,6 +89,7 @@
               }
               var dashKey = dashboard.docs[index].key
               var directorySource = dashboard.docs[index].data().directorySource
+              var theDashData = {}
               for (var dash in directorySource) {
                 if (that.unSubDash[directorySource[dash]]) {
                   that.unSubDash[directorySource[dash]]()
@@ -97,8 +98,9 @@
                 .doc(directorySource[dash])
                 .onSnapshot(function(doc) {
                   if (doc) {
+                    theDashData[directorySource[dash]] = doc.data()
                     that.allDashs[dashKey] = {
-                      data: doc.data(), 
+                      data: theDashData, 
                       alerts: alerts,
                       directorySource: dash,
                       dashKey: dashKey,
