@@ -83,32 +83,32 @@
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
-              var dash = dashboard.docs[index].data().directorySource
               var alerts = {
                 callsQueueing:  dashboard.docs[index].data().callsQueueing,
                 longestWaiting: dashboard.docs[index].data().longestWaiting,
               }
-              
-              if (that.unSubDash[dash]) {
-                that.unSubDash[dash]()
-              }
-              that.unSubDash[dash] = firebase.firestore().collection('directory')
-              .doc(dash)
-              .onSnapshot(function(doc) {
-                if (doc) {
-                  that.allDashs[dash] = {
-                    data: doc.data(), 
-                    alerts: alerts,
-                    directorySource: dash,
-                  }
-                  if (!that.allDashs[dash].data.primaryName) {
-                    that.allDashs[dash].data.primaryName = dash
-                  }
-                  that.go = !that.go
-                } else {
-                  console.log("No such document!")
+              for (var dash in dashboard.docs[index].data().directorySource) {
+                if (that.unSubDash[dash]) {
+                  that.unSubDash[dash]()
                 }
-              })
+                that.unSubDash[dash] = firebase.firestore().collection('directory')
+                .doc(dash)
+                .onSnapshot(function(doc) {
+                  if (doc) {
+                    that.allDashs[dash] = {
+                      data: doc.data(), 
+                      alerts: alerts,
+                      directorySource: dash,
+                    }
+                    if (!that.allDashs[dash].data.primaryName) {
+                      that.allDashs[dash].data.primaryName = dash
+                    }
+                    that.go = !that.go
+                  } else {
+                    console.log("No such document!")
+                  }
+                })
+              }
             }
           }
         })
