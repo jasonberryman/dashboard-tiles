@@ -79,7 +79,7 @@
         if (this.unSubDashs) {
           this.unSubDashs()
         }
-        
+        var theDashData = {}
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
@@ -89,7 +89,7 @@
               }
               var dashKey = dashboard.docs[index].key
               var directorySource = dashboard.docs[index].data().directorySource
-              var theDashData = {}
+              
               for (var dash in directorySource) {
                 if (that.unSubDash[directorySource[dash]]) {
                   that.unSubDash[directorySource[dash]]()
