@@ -120,6 +120,14 @@
                 theDashData[" "].description = theData.description
               }
               
+              if (theData.photoUrl) {
+                if (!theDashData[" "]) {
+                  theDashData[" "] = {}
+                }
+                theDashData[" "].photoUrl = theData.photoUrl
+              }
+              
+              
               var dashKey = dashboard.docs[index].key
               var directorySource = dashboard.docs[index].data().directorySource
               
