@@ -56,6 +56,25 @@
         value:"",
       },
     },
+    mergeData: function(data) {
+      var output = {}
+      for (var theSet in data) {
+        for (var lert in data[theSet]) {
+          if (data[theSet].hasOwnProperty(lert)) { 
+            if (!output[lert]) {
+              output[lert] = data[theSet][lert]
+            } else if ( output[lert] < +data[theSet][lert] && +data[theSet][lert] < (24 * 60 * 60 * 1000) ) { // prefer bigger, not date
+              output[lert] = data[theSet][lert]
+            } else if ( output[lert] > +data[theSet][lert] && +data[theSet][lert] > (24 * 60 * 60 * 1000) ) { // prefer earlier, date
+              output[lert] = data[theSet][lert]
+            } else if (+data[theSet][lert] === 0) {
+              output[lert] = data[theSet][lert]
+            }
+          }
+        }
+      }
+      return output
+    },
     setList: function(allDashs){
       var output = []
       if (allDashs) {
@@ -99,8 +118,9 @@
                 .onSnapshot(function(doc) {
                   if (doc) {
                     theDashData[directorySource[dash]] = doc.data()
+                    var mergedData = that.mergeData(theDashData)
                     that.allDashs[dashKey] = {
-                      data: theDashData, 
+                      data: mergedData, 
                       alerts: alerts,
                       directorySource: dash,
                       dashKey: dashKey,
