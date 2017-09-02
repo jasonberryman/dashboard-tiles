@@ -102,10 +102,24 @@
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
+              var theData = dashboard.docs[index].data()
               var alerts = {
-                callsQueueing:  dashboard.docs[index].data().callsQueueing,
-                longestWaiting: dashboard.docs[index].data().longestWaiting,
+                callsQueueing:  theData.callsQueueing,
+                longestWaiting: theData.longestWaiting,
               }
+              if (theData.displayName) {
+                if (!theDashData[" "]) {
+                  theDashData[" "] = {}
+                }
+                theDashData[" "].displayName = theData.displayName
+              }          
+              if (theData.description) {
+                if (!theDashData[" "]) {
+                  theDashData[" "] = {}
+                }
+                theDashData[" "].description = theData.description
+              }
+              
               var dashKey = dashboard.docs[index].key
               var directorySource = dashboard.docs[index].data().directorySource
               
