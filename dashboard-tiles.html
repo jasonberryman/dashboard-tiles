@@ -23,7 +23,7 @@
       loading .. / no dashboard tiles
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile item="[[item]]"></dashboard-tile>
+      <dashboard-tile item="[[item]]" dash-ref="{{item.}}"></dashboard-tile>
     </template>
   </template>
 </dom-module>
@@ -129,7 +129,8 @@
               
               
               var dashKey = dashboard.docs[index].key
-              var directorySource = dashboard.docs[index].data().directorySource
+              var dashRef = dashboard.docs[index].ref
+              var directorySource = theData.directorySource
               
               for (var dash in directorySource) {
                 if (that.unSubDash[directorySource[dash]]) {
@@ -146,6 +147,7 @@
                       alerts: alerts,
                       directorySource: dash,
                       dashKey: dashKey,
+                      dashRef: dashRef,
                     }
                     that.go = !that.go
                   } else {
