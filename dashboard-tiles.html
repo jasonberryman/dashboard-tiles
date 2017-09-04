@@ -134,10 +134,13 @@
               var directorySource = theData.directorySource
               
               for (var dash in directorySource) {
-                if (that.unSubDash[directorySource[dash]]) {
-                  that.unSubDash[directorySource[dash]]()
+                if (that.unSubDash[dashKey] && that.unSubDash[dashKey][directorySource[dash]]) {
+                  that.unSubDash[dashKey][directorySource[dash]]()
                 }
-                that.unSubDash[directorySource[dash]] = firebase.firestore().collection('directory')
+                if (!that.unSubDash[dashKey]) {
+                  that.unSubDash[dashKey] = {}
+                }
+                that.unSubDash[dashKey][directorySource[dash]] = firebase.firestore().collection('directory')
                 .doc(directorySource[dash])
                 .onSnapshot(function(doc) {
                   if (doc) {
