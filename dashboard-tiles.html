@@ -23,7 +23,7 @@
       loading .. / no dashboard tiles
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile dash-ref="{{item}}"></dashboard-tile>
+      <dashboard-tile dash-ref="[[item]]"></dashboard-tile>
     </template>
   </template>
 </dom-module>
@@ -49,22 +49,9 @@
       getReady:{
         computed: "setup(userRef)",
       },
-      list:{
-        computed: "setList(allDashs, go)",
-      },
       go: {
         value:"",
       },
-    },
-    setList: function(allDashs){
-      var output = []
-      if (allDashs) {
-        var keys = Object.keys(allDashs)
-        for (var i = 0; i < keys.length; i++) {
-          output.push(allDashs[keys[i]])
-        }
-      }
-      return output
     },
     setup: function(userRef){
       this.allDashs = {}
