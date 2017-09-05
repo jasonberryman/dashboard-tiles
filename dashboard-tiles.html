@@ -66,13 +66,14 @@
         if (this.unSubDashs) {
           this.unSubDashs()
         }
-        that.list = []
+        var list = []
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
-              that.list.push({
+              list.push({
                 ref: dashboard.docs[index].ref,
               })
+              that.set("list",list)
             }
           }
         })
