@@ -23,7 +23,7 @@
       loading .. / no dashboard tiles
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile item="[[item]]" dash-ref="{{item.dashRef}}"></dashboard-tile>
+      <dashboard-tile dash-ref="{{item}}"></dashboard-tile>
     </template>
   </template>
 </dom-module>
@@ -56,25 +56,6 @@
         value:"",
       },
     },
-    mergeData: function(data) {
-      var output = {}
-      for (var theSet in data) {
-        for (var lert in data[theSet]) {
-          if (data[theSet].hasOwnProperty(lert)) { 
-            if (!output[lert]) {
-              output[lert] = data[theSet][lert]
-            } else if ( output[lert] < +data[theSet][lert] && +data[theSet][lert] < (24 * 60 * 60 * 1000) ) { // prefer bigger, not date
-              output[lert] = data[theSet][lert]
-            } else if ( output[lert] > +data[theSet][lert] && +data[theSet][lert] > (24 * 60 * 60 * 1000) ) { // prefer earlier, date
-              output[lert] = data[theSet][lert]
-            } else if (+data[theSet][lert] === 0) {
-              output[lert] = data[theSet][lert]
-            }
-          }
-        }
-      }
-      return output
-    },
     setList: function(allDashs){
       var output = []
       if (allDashs) {
@@ -98,68 +79,11 @@
         if (this.unSubDashs) {
           this.unSubDashs()
         }
-        var theDashData = {}
+        that.list = []
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
-              
-              var theData = dashboard.docs[index].data()
-              var dashKey = dashboard.docs[index].id
-              var dashRef = dashboard.docs[index].ref
-              
-              var alerts = {
-                callsQueueing:  theData.callsQueueing,
-                longestWaiting: theData.longestWaiting,
-              }
-              if (theData.displayName) {
-                if (!theDashData[" "]) {
-                  theDashData[" "] = {}
-                }              
-                theDashData[" "].displayName = theData.displayName
-              }          
-              if (theData.description) {
-                if (!theDashData[" "]) {
-                  theDashData[" "] = {}
-                }
-                theDashData[" "].description = theData.description
-              }
-              
-              if (theData.photoUrl) {
-                if (!theDashData[" "]) {
-                  theDashData[" "] = {}
-                }
-                theDashData[" "].photoUrl = theData.photoUrl
-              }
-              
-              var directorySource = theData.directorySource
-              
-              for (var dash in directorySource) {
-                if (that.unSubDash[dashKey] && that.unSubDash[dashKey][directorySource[dash]]) {
-                  that.unSubDash[dashKey][directorySource[dash]]()
-                }
-                if (!that.unSubDash[dashKey]) {
-                  that.unSubDash[dashKey] = {}
-                }
-                that.unSubDash[dashKey][directorySource[dash]] = firebase.firestore().collection('directory')
-                .doc(directorySource[dash])
-                .onSnapshot(function(doc) {
-                  if (doc) {
-                    theDashData[directorySource[dash]] = doc.data()
-                    var mergedData = that.mergeData(theDashData)
-                    that.allDashs[dashKey] = {
-                      data: mergedData, 
-                      alerts: alerts,
-                      directorySource: dash,
-                      dashKey: dashKey,
-                      dashRef: dashRef,
-                      index: index,
-                    }
-                    that.go = !that.go
-                  } else {
-                    console.log("No such document!")
-                  }
-                })
-              }
+              that.list.push(dashboard.docs[index].ref)
             }
           }
         })
