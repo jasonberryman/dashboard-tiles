@@ -23,7 +23,7 @@
       loading .. / no dashboard tiles
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile dash-ref="[[item]]"></dashboard-tile>
+      <dashboard-tile dash-ref="[[item.ref]]"></dashboard-tile>
     </template>
   </template>
 </dom-module>
@@ -70,7 +70,9 @@
         this.unSubDashs = userRef.collection('dashboards').onSnapshot(function(dashboard) {
           if (dashboard) {
             for (var index in dashboard.docs) {
-              that.list.push(dashboard.docs[index].ref)
+              that.list.push({
+                ref: dashboard.docs[index].ref,
+              })
             }
           }
         })
