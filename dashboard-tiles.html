@@ -69,12 +69,13 @@
         var list = []
         this.unSubDashs = userRef.collection('dashboards').orderBy("weight").onSnapshot(function(dashboard) {
           if (dashboard) {
-            for (var index in dashboard.docs) {
+            dashboard.docs.forEach(function(doc) {
               list.push({
-                ref: dashboard.docs[index].ref,
+                ref: doc.ref,
+                id : doc.id,
               })
-              that.set("list",list)
             }
+            that.set("list",list)
           }
         })
       }
