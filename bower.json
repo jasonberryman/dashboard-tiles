@@ -9,7 +9,8 @@
   ],
   "dependencies": {
     "polymer": "1.9.3",
-    "dashboard-tile": "marcus7777/dashboard-tile"
+    "dashboard-tile": "marcus7777/dashboard-tile",
+    "paper-spinner":"PolymerElements/paper-spinner#~1.2.1"
   },
   "devDependencies": {
     "iron-test-helpers": "*",
