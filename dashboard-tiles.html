@@ -17,7 +17,7 @@
       }
     </style>
     <template is="dom-if" if="[[!list.length]]">
-      <paper-spinner active></paper-spinner>
+      <div><paper-spinner active></paper-spinner></div>
     </template>
     <template is="dom-repeat" items="{{list}}">
       <dashboard-tile dash-ref="[[item.ref]]"></dashboard-tile>
