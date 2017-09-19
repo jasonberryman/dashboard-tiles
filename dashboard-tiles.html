@@ -21,7 +21,7 @@
       <div><paper-spinner active></paper-spinner></div>
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile dash-ref="[[item.ref]]"></dashboard-tile>
+      <dashboard-tile dash-ref="[[item.ref]]" can-create="[[canCreate]]"></dashboard-tile>
     </template>
     <template is="dom-if" if="[[canCreate]]">
       <paper-fab icon="add" on-tap="addDashboardTile"></paper-fab>
