@@ -58,8 +58,8 @@
         value:"",
       },
     },
-    addDashboardTile: function(userRef){
-       userRef.collection('dashboards').add({
+    addDashboardTile: function(){
+       this.userRef.collection('dashboards').add({
          weight:0
        })
     },
