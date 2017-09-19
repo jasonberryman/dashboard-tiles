@@ -60,7 +60,8 @@
     },
     addDashboardTile: function(){
        this.userRef.collection('dashboards').add({
-         weight:0
+         weight:0,
+         directorySources:[],
        })
     },
     setup: function(userRef){
