@@ -22,6 +22,9 @@
     <template is="dom-repeat" items="{{list}}">
       <dashboard-tile dash-ref="[[item.ref]]"></dashboard-tile>
     </template>
+    <template is="dom-if" if="[[canCreate]]">
+      <paper-fab icon="add" on-tap="addDashboardTile"></paper-fab>
+    </template>
   </template>
 </dom-module>
 <script>
@@ -45,6 +48,10 @@
       },
       getReady:{
         computed: "setup(userRef)",
+      },
+      canCreate: {
+        type:Boolean,
+        value:false,
       },
       go: {
         value:"",
