@@ -12,12 +12,14 @@
         font-family: 'Roboto', 'Noto', sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-      paper-fab {background-color: #99c75f;position:fixed;bottom:26px;right:36px}
-      paper-spinner {
-        text-align:center
+      paper-fab {
+        background-color: #99c75f;
+        position:fixed;
+        bottom:26px;
+        right:36px;
       }
     </style>
-    <template is="dom-if" if="[[!list.length]]">
+    <template is="dom-if" if="[[!loaded]]">
       <div style="text-align: center"><paper-spinner active></paper-spinner></div>
     </template>
     <template is="dom-repeat" items="{{list}}">
@@ -54,6 +56,10 @@
         type:Boolean,
         value:false,
       },
+      loaded: {
+        type:Boolean,
+        value:false,
+      },
       go: {
         value:"",
       },
@@ -77,6 +83,7 @@
         if (this.unSubDashs) {
           this.unSubDashs()
         }
+        that.set("loaded",false)
         var list = []
         this.unSubDashs = userRef.collection('dashboards').orderBy("weight").onSnapshot(function(dashboard) {
           if (dashboard) {
@@ -88,6 +95,8 @@
             })
             that.set("list",list)
           }
+          
+          that.set("loaded",true)
         })
       }
     },
