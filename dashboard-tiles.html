@@ -65,10 +65,7 @@
       },
     },
     addDashboardTile: function(){
-       this.userRef.collection('dashboards').add({
-         weight:0,
-         directorySources:[],
-       })
+      this.list.push({})
     },
     setup: function(userRef){
       this.allDashs = {}
@@ -84,6 +81,7 @@
           this.unSubDashs()
         }
         that.set("loaded",false)
+        this.dashboards = this.userRef.collection('dashboards')
         this.unSubDashs = userRef.collection('dashboards').orderBy("weight").onSnapshot(function(dashboard) {
           if (dashboard) {
             var list = []
