@@ -83,7 +83,7 @@
         if (this.unSubDashs) {
           this.unSubDashs()
         }
-        that.set("loaded",false)
+        this.set("loaded",false)
         this.dashboards.ref = userRef.collection('dashboards')
         this.unSubDashs = this.dashboards.ref.orderBy("weight").onSnapshot(function(dashboard) {
           if (dashboard) {
