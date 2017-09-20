@@ -68,7 +68,9 @@
       },
     },
     addDashboardTile: function(){
-      this.push("list",{})
+      this.push("list",{
+        directorySources: [],
+      })
     },
     setup: function(userRef){
       this.allDashs = {}
