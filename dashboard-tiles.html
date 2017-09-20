@@ -23,7 +23,7 @@
       <div style="text-align: center"><paper-spinner active></paper-spinner></div>
     </template>
     <template is="dom-repeat" items="{{list}}">
-      <dashboard-tile dash-ref="[[item.ref]]" can-create="[[canCreate]]"></dashboard-tile>
+      <dashboard-tile dash-ref="[[item.ref]]" can-create="[[canCreate]]" dashboards-ref="[[dashboards.ref]]"></dashboard-tile>
     </template>
     <template is="dom-if" if="[[canCreate]]">
       <paper-fab icon="add" on-tap="addDashboardTile"></paper-fab>
@@ -34,6 +34,9 @@
   Polymer({
     is: "dashboard-tiles",
     properties:{
+      dashboards:{
+        value: {},
+      },
       list:{
         type: Array,
         value:[],
@@ -81,8 +84,8 @@
           this.unSubDashs()
         }
         that.set("loaded",false)
-        this.dashboards = this.userRef.collection('dashboards')
-        this.unSubDashs = userRef.collection('dashboards').orderBy("weight").onSnapshot(function(dashboard) {
+        this.dashboards.ref = userRef.collection('dashboards')
+        this.unSubDashs = this.dashboards.ref.orderBy("weight").onSnapshot(function(dashboard) {
           if (dashboard) {
             var list = []
             dashboard.docs.forEach(function(doc) {
