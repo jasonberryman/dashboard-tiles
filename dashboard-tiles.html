@@ -37,6 +37,9 @@
       dashboards:{
         value: {},
       },
+      display: {
+        value: "home",
+      },
       list:{
         type: Array,
         value:[],
@@ -72,7 +75,7 @@
         ref: "",
       })
     },
-    setup: function(userRef){
+    setup: function(userRef, display){
       this.allDashs = {}
       if (!this.unSubDash) {
         this.unSubDash = {}
@@ -87,7 +90,7 @@
         }
         this.set("loaded",false)
         this.dashboards.ref = userRef.collection('dashboards')
-        this.unSubDashs = this.dashboards.ref.orderBy("weight").onSnapshot(function(dashboard) {
+        this.unSubDashs = this.dashboards.ref.where("display." + display, ">=", 0).orderBy("display." + display).onSnapshot(function(dashboard) {
           if (dashboard) {
             var list = []
             dashboard.docs.forEach(function(doc) {
